@@ -1,2 +1,5 @@
 /dataset_test
 /dataset_train
+feature_extraction/__pycache__/
+
+__pycache__/
