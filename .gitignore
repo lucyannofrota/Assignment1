@@ -1,5 +1,6 @@
 /dataset_test
 /dataset_train
+datasets/
 feature_extraction/__pycache__/
 
 __pycache__/
