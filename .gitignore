@@ -6,3 +6,5 @@ feature_extraction/__pycache__/
 __pycache__/
 
 *.csv
+
+*.ftr
