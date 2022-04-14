@@ -1,0 +1,5 @@
+https://andradaolteanu.medium.com/how-to-install-and-use-rapids-on-your-windows-workstation-a31af966ef62
+
+https://developer.nvidia.com/blog/python-pandas-tutorial-beginners-guide-to-gpu-accelerated-dataframes-for-pandas-users/?ncid=so-twit-981915-vt27#cid=_so-twit_en-us
+
+https://developer.nvidia.com/blog/scikit-learn-tutorial-beginners-guide-to-gpu-accelerating-ml-pipelines/
