@@ -28,7 +28,7 @@ class random_forest():
         mode_ = np.transpose(mode_[0])
         return mode_
 
-    def bagging(self, x_samples, y_samples):
+    def fit(self, x_samples, y_samples):
         idx = self.bootstrap(x_samples)
 
         for t in range(self.number_of_trees):
@@ -36,7 +36,7 @@ class random_forest():
             tree.fit(x_samples[flatten(idx[t])], y_samples[flatten(idx[t])])
             self.forest.append(tree)
 
-    def train(self, x_samples, y_samples):
-        self.bagging(x_samples, y_samples)
+    # def train(self, x_samples, y_samples):
+    #     self.bagging(x_samples, y_samples)
 def flatten(t):
     return [item for item in t]
