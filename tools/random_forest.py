@@ -1,14 +1,16 @@
+from random import seed
 import numpy as np
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier as tree_classifier
 from scipy import stats
 
 class random_forest():
-    def __init__(self, number_of_trees=1, number_of_iteractions=1, max_depth=1):
+    def __init__(self, number_of_trees=1, number_of_iteractions=1, max_depth=1, random_state=1):
         self.iteractions= number_of_iteractions
         self.number_of_trees = number_of_trees
         self.max_depth = max_depth
         self.forest=[]
+        self.random_state = random_state
 
     def bootstrap(self, x_samples):
         """ Create subsets of the input, and returns the indexes 
@@ -17,7 +19,8 @@ class random_forest():
 
         sample_length = len(x_samples)
         for i in range(self.number_of_trees):
-            index.append(np.random.randint(0, sample_length, [1, sample_length]))
+            index.append(np.random.randint(0, sample_length, [
+                         1, sample_length], seed=self.random_state))
         return index
 
     def predict(self, X):
@@ -32,7 +35,8 @@ class random_forest():
         idx = self.bootstrap(x_samples)
 
         for t in range(self.number_of_trees):
-            tree = tree_classifier(criterion="gini", max_depth=self.max_depth)
+            tree = tree_classifier(
+                criterion="gini", max_depth=self.max_depth, random_state=self.random_state)
             tree.fit(x_samples[flatten(idx[t])], y_samples[flatten(idx[t])])
             self.forest.append(tree)
 
