@@ -31,11 +31,14 @@ class random_forest():
         sample_length = int(np.floor(len(x_samples)/self.number_of_trees))
         np.random.RandomState(self.random_state)
 
-        subsamples = np.random.randint(
+        index = np.random.randint(
             0, sample_length, (self.number_of_trees, sample_length))
+
+        # if isinstance(x_samples, pd.DataFrame):
+        #     x_samples = x_samples.to_numpy()
         
-        for i in range(self.number_of_trees):
-            subsamples[i, :] = x_samples[subsamples[i, :], :]
+        # for i in range(self.number_of_trees):
+        #     subsamples[i, :] = x_samples[subsamples[i, :], :]
 
         # for i in range(self.number_of_trees):
         #     subsamples.append(x_samples[np.random.randint(
@@ -43,7 +46,7 @@ class random_forest():
             # index.append(np.random.randint(0, sample_length, [
             #              1, sample_length]))
 
-        return subsamples
+        return index
 
     def predict(self, X):
         y = []
@@ -59,7 +62,7 @@ class random_forest():
         for t in range(self.number_of_trees):
             tree = tree_classifier(
                 criterion="gini", max_depth=self.max_depth, random_state=self.random_state)
-            tree.fit(x_samples[flatten(idx[t])], y_samples[flatten(idx[t])])
+            tree.fit(x_samples.iloc[idx[t]], y_samples[idx[t]])
             self.forest.append(tree)
 
     # def train(self, x_samples, y_samples):
@@ -70,7 +73,7 @@ def flatten(t):
     return [item for item in t]
 
 
-clf = random_forest(number_of_trees=1, number_of_iteractions=1, max_depth=1)
+clf = random_forest(number_of_trees=2, number_of_iteractions=1, max_depth=1)
 
 
 x = pd.DataFrame(train.iloc[:, :-1])

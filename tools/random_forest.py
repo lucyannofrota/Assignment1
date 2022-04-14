@@ -4,12 +4,13 @@ import pandas as pd
 from sklearn.tree import DecisionTreeClassifier as tree_classifier
 from scipy import stats
 
+
 class random_forest():
     def __init__(self, number_of_trees=1, number_of_iteractions=1, max_depth=1, random_state=1):
-        self.iteractions= number_of_iteractions
+        self.iteractions = number_of_iteractions
         self.number_of_trees = number_of_trees
         self.max_depth = max_depth
-        self.forest=[]
+        self.forest = []
         self.random_state = random_state
 
     def bootstrap(self, x_samples):
@@ -17,10 +18,12 @@ class random_forest():
             from the original sample."""
         index = []
 
-        sample_length = len(x_samples)
-        for i in range(self.number_of_trees):
-            index.append(np.random.randint(0, sample_length, [
-                         1, sample_length], seed=self.random_state))
+        sample_length = int(np.floor(len(x_samples)/self.number_of_trees))
+        np.random.RandomState(self.random_state)
+
+        index = np.random.randint(
+            0, sample_length, (self.number_of_trees, sample_length))
+
         return index
 
     def predict(self, X):
@@ -37,10 +40,5 @@ class random_forest():
         for t in range(self.number_of_trees):
             tree = tree_classifier(
                 criterion="gini", max_depth=self.max_depth, random_state=self.random_state)
-            tree.fit(x_samples[flatten(idx[t])], y_samples[flatten(idx[t])])
+            tree.fit(x_samples.iloc[idx[t]], y_samples[idx[t]])
             self.forest.append(tree)
-
-    # def train(self, x_samples, y_samples):
-    #     self.bagging(x_samples, y_samples)
-def flatten(t):
-    return [item for item in t]

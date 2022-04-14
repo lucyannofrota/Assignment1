@@ -8,3 +8,5 @@ __pycache__/
 *.csv
 
 *.ftr
+
+bfg-1.14.0.jar
