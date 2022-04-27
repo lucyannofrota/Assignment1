@@ -3,10 +3,11 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 
 def export_results(prediction):
+    print(prediction)
     result = pd.DataFrame(data={
-        "Id": range(2000),
+        "Id": range(prediction.shape[0]),
         "Category": prediction.astype(int)
-    })
+    }, index=None)
 
     result.to_csv('result.csv', index=False)
 

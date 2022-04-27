@@ -1,6 +1,5 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-import numpy as np
 
 def export_results(prediction):
     result = pd.DataFrame(data={
@@ -11,7 +10,7 @@ def export_results(prediction):
     result.to_csv('result.csv', index=False)
 
 def load_dataset(filename, test_only=False, rs = 1):
-    df = pd.read_csv(filename)
+    df = pd.read_csv("./dts/plain_dataset.csv")
 
     if not test_only:
         train, test = train_test_split(df, test_size=0.2, random_state=rs)
