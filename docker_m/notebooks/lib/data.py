@@ -1,12 +1,13 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import numpy as np
-
+from torch.utils.data import Dataset
+import torch
 def export_results(prediction):
     print(prediction)
     result = pd.DataFrame(data={
         "Id": range(prediction.shape[0]),
-        "Category": prediction.astype(int)
+        "Category": prediction.astype(input())
     }, index=None)
 
     result.to_csv('result.csv', index=False)
@@ -27,5 +28,11 @@ def load_dataset(filename, test_only=False, rs = 1):
         x_test = df.iloc[:, :-1]
     return x_test
 
-    
-    
+class dataset(Dataset):
+    def __init__(self, x, y):
+        self.y = torch.tensor(y, dtype=torch.int64)
+        self.x = torch.tensor(x.values, dtype=torch.float32)
+    def __len__(self):
+        return len(self.y)
+    def __getitem__(self, index):
+        return self.x[index], self.y[index]

@@ -9,4 +9,6 @@ __pycache__/
 
 *.ftr
 
-test/
+create_dataset/dataset/images/
+create_dataset/dataset/
+lib/.ipynb_checkpoints/
