@@ -1,8 +1,12 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import scale
+from sklearn.preprocessing import StandardScaler
 import numpy as np
 from torch.utils.data import Dataset
 import torch
+
+
 def export_results(prediction):
     print(prediction)
     result = pd.DataFrame(data={
@@ -28,10 +32,12 @@ def load_dataset(filename, test_only=False, rs = 1):
         x_test = df.iloc[:, :-1]
     return x_test
 
+
 class dataset(Dataset):
     def __init__(self, x, y):
-        self.y = torch.tensor(y, dtype=torch.int64)
-        self.x = torch.tensor(x.values, dtype=torch.float32)
+        x = StandardScaler().fit_transform(x)
+        self.y = torch.tensor(y, dtype=torch.float32)
+        self.x = torch.tensor(x, dtype=torch.float32)
     def __len__(self):
         return len(self.y)
     def __getitem__(self, index):
