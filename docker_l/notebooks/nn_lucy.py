@@ -59,7 +59,7 @@ class nnModel(nn.Module): # Modelo Pensado para classificação
 
         return x
 
-    def fit(self, trainloader=[], validloader=[], valid_int=10, numEpochs=10, learningRate=0.1, momentum=0.0, gamma=1.0, regularization=0.0, verbose=False, device=None):
+    def fit(self, trainloader=[], validloader=[], valid_int=5, numEpochs=10, learningRate=0.1, momentum=0.0, gamma=1.0, regularization=0.0, verbose=False, device=None):
         if device == None:
             device = self.device
 
@@ -146,42 +146,12 @@ class nnModel(nn.Module): # Modelo Pensado para classificação
         return losses, accur
 
     def predict(self, features):
+        feat = features.to(self.device)
         self.eval()
         with torch.no_grad():
-            predicted = self(features)
+            predicted = self(feat)
 
         return predicted.cpu().reshape(-1).detach().numpy().round()
-
-class regNN_model(nnModel):
-    def __init__(self, inFeatures=9, random_state=42):
-        super(regNN_model,self).__init__(inFeatures, random_state)
-
-        self.criterion = nn.L1Loss()
-
-    def define_arch(self):
-        self.fc1 = nn.Linear(in_features=self.inFeatures, out_features=64)
-
-        self.fc2 = nn.Linear(in_features=64, out_features=32)
-
-        self.fc3 = nn.Linear(in_features=32, out_features=1)
-
-        nnModel.init_weights(self.fc1)
-        nnModel.init_weights(self.fc2)
-        nnModel.init_weights(self.fc3)
-
-    def forward(self, x):
-
-        x = self.fc1(x)
-        x = torch.relu(x)
-
-        x = self.fc2(x)
-        x = torch.relu(x)
-
-        x = self.fc3(x)
-
-        # x = torch.round(x)
-
-        return x
 
 
 from torch.utils.data import Subset
