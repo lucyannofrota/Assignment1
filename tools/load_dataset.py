@@ -4,18 +4,29 @@ import numpy as np
 
 def load_imgs(path):
     imgs = []
-    path_list = listdir(path)
+    path_list = sort_by_number(listdir(path))
     for img_path in path_list:
         img = cv2.imread(path+img_path, 0)
+        img = img.flatten()
         imgs.append(img)
     return imgs
 
+def sort_by_number(path_list):
+    n = []
+    for item in path_list:
+        num = item.split('.')[0]
+        if '_' in num:
+            n.append(int(num.split('_')[1]))
+        else:
+            n.append(int(num))
+    idx = np.argsort(n)
+    return [path_list[i] for i in idx]
 
 def load_dataset(path, test=False):
     if test:
-
+        
         imgs = np.array(load_imgs(path+"images/"))
-
+        
         labels = np.zeros((len(imgs), 1), dtype=bool)
     else:
         fakePath = 'fake/'

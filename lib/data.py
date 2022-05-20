@@ -1,17 +1,38 @@
-dataset_link = "https://www.dropbox.com/s/uje00mjhmki15ze/datasets.rar?dl=0"
+import pandas as pd
+from sklearn.model_selection import train_test_split
+import numpy as np
+from torch.utils.data import Dataset
+import torch
+def export_results(prediction):
+    print(prediction)
+    result = pd.DataFrame(data={
+        "Id": range(prediction.shape[0]),
+        "Category": prediction.astype(input())
+    }, index=None)
 
-class Dataset:
-    def __init__(self, folder_name):
-        self.data = self.__import__(folder_name)
-        self.__categorize__()
-    
-    def __import__(self):
+    result.to_csv('result.csv', index=False)
+
+def load_dataset(filename, test_only=False, rs = 1):
+    df = pd.read_csv(filename)
+
+    if not test_only:
+        train, test = train_test_split(df, test_size=0.2, random_state=rs)
         
-        pass
-    def __categorize__(self):
-        pass
+        x_test  = pd.DataFrame(test.iloc[:, :-1])
+        y_test  = np.array(test.iloc[:, -1])
 
-class Data:
-    def __init__(self, image, label):
-        self.image = image
-        self.label = label
+        x_train = pd.DataFrame(train.iloc[:, :-1])
+        y_train = np.array(train.iloc[:, -1])
+        return x_train, y_train, x_test, y_test
+    else:
+        x_test = df.iloc[:, :-1]
+    return x_test
+
+class dataset(Dataset):
+    def __init__(self, x, y):
+        self.y = torch.tensor(y, dtype=torch.int64)
+        self.x = torch.tensor(x.values, dtype=torch.float32)
+    def __len__(self):
+        return len(self.y)
+    def __getitem__(self, index):
+        return self.x[index], self.y[index]

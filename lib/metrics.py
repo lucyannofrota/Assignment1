@@ -1,3 +1,8 @@
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+
 def accuracy(TP, TN, number_of_samples):
     return (TP + TN)/number_of_samples
 
@@ -36,3 +41,12 @@ def get_metrics(training_set, labels):
     re = recall(TP, FN)
     auc = None #AUC
     return acc, pre, re, auc
+
+def metrics(prediction, ground_truth):
+    accuracy = accuracy_score(y_true=ground_truth, y_pred=prediction)
+    roc = roc_auc_score(ground_truth, prediction)
+    pre = precision_score(ground_truth, y_pred=prediction)
+    rec = recall_score(y_true=ground_truth, y_pred=prediction)
+
+
+    print("Metrics: \n Acc: {acc:.2f}, ROC: {roc:.2f}\n PRE: {pre:.2f}, REC: {rec:.2f}".format(acc=accuracy,roc=roc,pre=pre,rec=rec))

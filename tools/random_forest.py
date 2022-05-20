@@ -18,12 +18,11 @@ class random_forest():
             from the original sample."""
         index = []
 
-        sample_length = int(np.floor(len(x_samples)/self.number_of_trees))
-        np.random.RandomState(self.random_state)
-
-        index = np.random.randint(
-            0, sample_length, (self.number_of_trees, sample_length))
-
+        sample_length = len(x_samples)
+        r = np.random.RandomState(self.random_state)
+        for i in range(self.number_of_trees):
+            index.append(r.randint(0, sample_length, [
+                         1, sample_length]))
         return index
 
     def predict(self, X):

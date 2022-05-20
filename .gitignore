@@ -9,4 +9,8 @@ __pycache__/
 
 *.ftr
 
-bfg-1.14.0.jar
+create_dataset/dataset/images/
+create_dataset/dataset/
+lib/.ipynb_checkpoints/
+
+dataset/images/
