@@ -12,3 +12,5 @@ __pycache__/
 create_dataset/dataset/images/
 create_dataset/dataset/
 lib/.ipynb_checkpoints/
+
+*.png
