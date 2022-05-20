@@ -16,7 +16,7 @@ def export_results(prediction):
 
     result.to_csv('result.csv', index=False)
 
-def load_dataset(filename, test_only=False, rs = 1):
+def load_dataset(filename, test_only=False, rs = 2):
     df = pd.read_csv(filename)
 
     if not test_only:
