@@ -34,8 +34,12 @@ def load_dataset(filename, test_only=False, rs = 1):
 
 
 class dataset(Dataset):
-    def __init__(self, x, y):
-        x = StandardScaler().fit_transform(x)
+    def __init__(self, x, y, sc = None):
+        if sc is None:
+            sc = StandardScaler()
+            sc.fit(x)
+        self.sc = sc
+        x = self.sc.transform(x)
         self.y = torch.tensor(y, dtype=torch.float32)
         self.x = torch.tensor(x, dtype=torch.float32)
     def __len__(self):

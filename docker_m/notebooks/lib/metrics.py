@@ -49,4 +49,4 @@ def metrics(prediction, ground_truth):
     rec = recall_score(y_true=ground_truth, y_pred=prediction)
 
 
-    print("Metrics: \n Acc: {acc:.2f}, ROC: {roc:.2f}\n PRE: {pre:.2f}, REC: {rec:.2f}".format(acc=accuracy,roc=roc,pre=pre,rec=rec))
+    print("Metrics: \n Acc: {acc:.3f}, ROC: {roc:.3f}\n PRE: {pre:.3f}, REC: {rec:.3f}".format(acc=accuracy,roc=roc,pre=pre,rec=rec))

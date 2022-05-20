@@ -7,7 +7,7 @@ def load_imgs(path):
     path_list = sort_by_number(listdir(path))
     for img_path in path_list:
         img = cv2.imread(path+img_path, 0)
-        img = img.flatten()
+        # img = img.flatten()
         imgs.append(img)
     return imgs
 

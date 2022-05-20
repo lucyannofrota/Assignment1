@@ -41,3 +41,9 @@ def feature_medianBlur(img):
 # Serialized Canny Img 28x28 = 784
 def feature_cannyEdge(img):
     return cv2.Canny(img, 100, 200)
+
+def feature_var(img):
+    
+    v = feature_SerializedImg(np.var(img, axis=1))
+
+    return v
