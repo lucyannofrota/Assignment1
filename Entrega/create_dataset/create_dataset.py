@@ -4,12 +4,11 @@ import tools.feature_extraction as fe
 import pandas as pd
 import numpy as np
 
-dts_path = '../dts/'
-dataset_path = 'dataset/images/'
+dts_path = 'dataset/images/'
 test = True
 
 def create_dataset(test):
-    imgs, labels = ldts.load_dataset(dataset_path, test=test)
+    imgs, labels = ldts.load_dataset(dts_path, test=test)
 
     df = pd.DataFrame()
 
@@ -23,18 +22,18 @@ def create_dataset(test):
     df = pd.DataFrame(S_images) # Images
     df.columns = fng.gen_name("img", 784)
 
-    # ColorHistogram = []
-    # for img in imgs:
-    #     ColorHistogram.append(fe.feature_colorHistogram(img=img))
+    ColorHistogram = []
+    for img in imgs:
+        ColorHistogram.append(fe.feature_colorHistogram(img=img))
 
-    # ColorHistogram = np.array(ColorHistogram)
-    # ColorHistogram = np.squeeze(ColorHistogram)
-    # print("Data shape: ", ColorHistogram.shape)
+    ColorHistogram = np.array(ColorHistogram)
+    ColorHistogram = np.squeeze(ColorHistogram)
+    print("Data shape: ", ColorHistogram.shape)
 
-    # temp_df = pd.DataFrame(ColorHistogram)
-    # temp_df.columns = fng.gen_name("CHistogram", 256)
-    # df = pd.concat([df, temp_df], axis=1)
-    # print("Dataframe shape: ", df.shape)
+    temp_df = pd.DataFrame(ColorHistogram)
+    temp_df.columns = fng.gen_name("CHistogram", 256)
+    df = pd.concat([df, temp_df], axis=1)
+    print("Dataframe shape: ", df.shape)
 
 
     gBlur = []
@@ -63,17 +62,17 @@ def create_dataset(test):
     print("Dataframe shape: ", df.shape)
 
 
-    # cVar = []
-    # for img in imgs:
-    #     cVar.append(fe.feature_var(img=img))
+    cVar = []
+    for img in imgs:
+        cVar.append(fe.feature_var(img=img))
 
-    # cVar = np.array(cVar)
-    # print("Data shape: ", cVar.shape)
+    cVar = np.array(cVar)
+    print("Data shape: ", cVar.shape)
 
-    # temp_df = pd.DataFrame(cVar)
-    # temp_df.columns = fng.gen_name("Variance", 28)
-    # df = pd.concat([df, temp_df], axis=1)
-    # print("Dataframe shape: ", df.shape)
+    temp_df = pd.DataFrame(cVar)
+    temp_df.columns = fng.gen_name("Variance", 28)
+    df = pd.concat([df, temp_df], axis=1)
+    print("Dataframe shape: ", df.shape)
 
 
 
@@ -81,9 +80,9 @@ def create_dataset(test):
     temp_df.columns = ["Label"]
     df = pd.concat([df, temp_df], axis=1)
     if test:
-        df.to_csv(dts_path + 'test_3.csv',index=False)
+        df.to_csv('../docker_m/notebooks/dts/dts_plain/test.csv',index=False)
     else:
-        df.to_csv(dts_path + 'train_3.csv',index=False)
+        df.to_csv('../docker_m/notebooks/dts/dts_plain/train.csv',index=False)
 
 create_dataset(True)
 create_dataset(False)
