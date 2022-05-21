@@ -13,10 +13,6 @@ create_dataset/dataset/images/
 create_dataset/dataset/
 lib/.ipynb_checkpoints/
 
-<<<<<<< HEAD
 dataset/images/
 
-~$Results.xlsx
-=======
-*.png
->>>>>>> main
+docker_l/notebooks/dts
