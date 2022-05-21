@@ -13,4 +13,21 @@ create_dataset/dataset/images/
 create_dataset/dataset/
 lib/.ipynb_checkpoints/
 
-*.png
+dataset/images/
+
+docker_l/notebooks/dts
+
+docker_m/notebooks/dts
+
+
+datasets.rar
+
+Entrega/create_dataset/dataset/images/fake/
+
+Entrega/create_dataset/dataset/images/images/
+
+Entrega/create_dataset/dataset/images/real/
+
+test_dts/real/
+
+test_dts/fake/
